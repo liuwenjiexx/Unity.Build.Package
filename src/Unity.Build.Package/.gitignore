@@ -1,0 +1,13 @@
+﻿/Library/
+/Temp/
+/*.csproj
+/*.sln
+/ProjectSettings/ProjectVersion.txt
+!*.meta
+*.mdb
+*.dll.mdb.meta
+/.vs/
+/build/
+*.apk
+/Logs/
+/obj/
