@@ -106,9 +106,15 @@ namespace UnityEditor.Build.Package
             src = Path.GetFullPath(src);
             dst = Path.GetFullPath(dst);
             List<string> list = new List<string>();
-
+ 
+ 
             if (Directory.Exists(dst))
             {
+                foreach (var file in Directory.GetFiles(dst, "*", SearchOption.AllDirectories))
+                {
+                    ClearFileAttributes(file);
+                }
+
                 foreach (var dir in Directory.GetDirectories(dst, "*", SearchOption.AllDirectories))
                 {
                     if (!Directory.Exists(dir))
@@ -155,10 +161,10 @@ namespace UnityEditor.Build.Package
         static void ClearFileAttributes(string file)
         {
             if (File.Exists(file))
-                File.SetAttributes(file, FileAttributes.Normal); 
+                File.SetAttributes(file, FileAttributes.Normal);
         }
         static void DeleteFile(string file)
-        { 
+        {
             ClearFileAttributes(file);
             File.Delete(file);
         }
