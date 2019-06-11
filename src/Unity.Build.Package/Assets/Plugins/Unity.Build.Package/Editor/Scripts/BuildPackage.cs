@@ -86,10 +86,25 @@ namespace UnityEditor.Build.Package
                     if (File.Exists(srcPath + ".mdb"))
                         CopyFileIfChanged(srcPath + ".mdb", dstPath + ".mdb");
                 }
+
+                foreach (var dir in Directory.GetDirectories(outpath))
+                {
+                    string dstMetaFile = dir + ".meta";
+                    string relativePath = dstMetaFile.Substring(outpath.Length+1);
+                    string srcMetaFile = Path.Combine(packageDir, relativePath);
+                    if (File.Exists(srcMetaFile))
+                    {
+                        CopyFileIfChanged(srcMetaFile, dstMetaFile);
+                    }
+                }
+
+
                 Debug.Log("build package " + outpath);
             }
 
         }
+
+
         public static string ReplaceDirectorySeparatorChar(string path)
         {
             char separatorChar = Path.DirectorySeparatorChar;
@@ -106,8 +121,8 @@ namespace UnityEditor.Build.Package
             src = Path.GetFullPath(src);
             dst = Path.GetFullPath(dst);
             List<string> list = new List<string>();
- 
- 
+
+
             if (Directory.Exists(dst))
             {
                 foreach (var file in Directory.GetFiles(dst, "*", SearchOption.AllDirectories))
