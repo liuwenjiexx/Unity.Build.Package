@@ -90,7 +90,7 @@ namespace UnityEditor.Build.Package
                 foreach (var dir in Directory.GetDirectories(outpath))
                 {
                     string dstMetaFile = dir + ".meta";
-                    string relativePath = dstMetaFile.Substring(outpath.Length+1);
+                    string relativePath = dstMetaFile.Substring(outpath.Length + 1);
                     string srcMetaFile = Path.Combine(packageDir, relativePath);
                     if (File.Exists(srcMetaFile))
                     {
@@ -99,10 +99,39 @@ namespace UnityEditor.Build.Package
                 }
 
 
-                Debug.Log("build package " + outpath);
+                Debug.Log("build package success\n" + outpath);
+
+                //EditorUtility.RevealInFinder(outpath);
             }
 
         }
+
+        //[MenuItem("File/Import Package")]
+        //static void ImportLocalPackage()
+        //{
+        //    PackageManifestInfo manifestInfo = JsonUtility.FromJson<PackageManifestInfo>(File.ReadAllText("Packages/manifest.json", Encoding.UTF8));
+        //    Debug.Log(manifestInfo.dependencies); 
+        //    foreach(var item in manifestInfo.dependencies)
+        //    {
+        //        Debug.Log(item.Key + "," + item.Value);
+        //    }
+        //    return;
+        //    string path = EditorUtility.OpenFolderPanel("Import Package", "", "");
+        //    if (string.IsNullOrEmpty(path))
+        //        return;
+        //    string packageFile = Path.Combine(path, "package.json");
+        //    if (!File.Exists(packageFile))
+        //    {
+        //        Debug.LogError("package.json file not exists");
+        //        return;
+        //    }
+
+        //    string str = File.ReadAllText(packageFile, Encoding.UTF8);
+        //    PackageInfo package = JsonUtility.FromJson<PackageInfo>(str);
+
+        //}
+
+
 
 
         public static string ReplaceDirectorySeparatorChar(string path)
@@ -259,6 +288,16 @@ namespace UnityEditor.Build.Package
             public string category;
             public string repoPackagePath;
         }
+
+        class PackageManifestInfo
+        {
+            //public Dictionary2 dependencies;
+
+
+
+        }
+
+
 
         class AsmdefInfo
         {
